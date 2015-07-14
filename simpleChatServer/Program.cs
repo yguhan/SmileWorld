@@ -21,6 +21,14 @@ namespace simpleChatServer
             counter = 0;
             while ((true))
             {
+                //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+
                 counter += 1;
                 clientSocket = serverSocket.AcceptTcpClient();
 
