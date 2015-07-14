@@ -22,7 +22,7 @@ namespace simpleChatServer
             while ((true))
             {
                 //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-                //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                //asd
                 //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                 //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                 //asdffffffffffffffffffffffffffffffffffffffffffffffffffffffff

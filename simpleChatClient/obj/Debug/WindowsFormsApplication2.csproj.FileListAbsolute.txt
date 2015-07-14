@@ -10,3 +10,4 @@ C:\Users\user\Desktop\simpleChatClient\obj\Debug\WindowsFormsApplication2.pdb
 C:\Users\user\Documents\GitHub\YUNGU\simpleChatClient\bin\Debug\WindowsFormsApplication2.exe.config
 C:\Users\user\Documents\GitHub\YUNGU\simpleChatClient\obj\Debug\WindowsFormsApplication2.exe
 C:\Users\user\Documents\GitHub\YUNGU\simpleChatClient\obj\Debug\WindowsFormsApplication2.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\simpleChatClient\bin\Debug\WindowsFormsApplication2.exe.config
