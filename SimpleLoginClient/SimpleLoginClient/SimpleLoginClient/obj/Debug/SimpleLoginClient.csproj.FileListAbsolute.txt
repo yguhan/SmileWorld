@@ -1,0 +1,19 @@
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.exe.config
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.exe
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.pdb
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Form1.resources
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Properties.Resources.resources
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.csproj.GenerateResource.Cache
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.exe
+c:\users\user\documents\visual studio 2013\Projects\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.pdb
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.exe.config
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.exe
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.pdb
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.exe
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.pdb
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.csprojResolveAssemblyReference.cache
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Form1.resources
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Form2.resources
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Properties.Resources.resources
+C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.csproj.GenerateResource.Cache
