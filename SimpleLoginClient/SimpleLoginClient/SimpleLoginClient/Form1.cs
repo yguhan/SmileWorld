@@ -35,6 +35,7 @@ namespace SimpleLoginClient
             byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
+
             int buffSize = 0;
             byte[] inStream = new byte[10025];
             buffSize = clientSocket.ReceiveBufferSize;
@@ -49,6 +50,7 @@ namespace SimpleLoginClient
             }
             this.Close();
             clientSocket.Close();
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -75,8 +77,6 @@ namespace SimpleLoginClient
             textBox3.Text = returndata;
             clientSocket.Close();
         }
-
-      
     }
 
     public class UserInfo

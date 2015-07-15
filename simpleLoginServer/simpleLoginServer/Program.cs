@@ -50,16 +50,16 @@ namespace simpleLoginServer
                 string ID = userinfo.id;
                 string passWD = userinfo.passwd;
 
-                Console.WriteLine("Task: " +  task);
+                Console.WriteLine("Task: " + task);
                 Console.WriteLine("ID: " + ID);
                 Console.WriteLine("passWD: " + passWD);
 
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = "SELECT * FROM `game`.`userdb` WHERE userid = '" + ID + "'";
                 cmd.Connection = conn;
-              
+
                 MySqlDataReader rdr = cmd.ExecuteReader();
-            
+
                 while (rdr.Read())
                 {
                     Console.WriteLine(rdr);
@@ -73,13 +73,13 @@ namespace simpleLoginServer
                 }
 
                 if (task == "login")
-                {                   
+                {
                     if (rdr.HasRows)
                     {
-                        if (String.Compare((string)rdr["pwd"],passWD) == 0)
+                        if (String.Compare((string)rdr["pwd"], passWD) == 0)
                         {
                             Console.WriteLine("logged in!");
-                            bytesTo = Encoding.ASCII.GetBytes("logged in!");                                                     
+                            bytesTo = Encoding.ASCII.GetBytes("logged in!");
                         }
                         else
                         {
@@ -99,7 +99,7 @@ namespace simpleLoginServer
                     {
                         Console.WriteLine("Signed in!");
                         bytesTo = Encoding.ASCII.GetBytes("Signed in!");
-                        
+
                         rdr.Close();
                         MySqlCommand insert_cmd = new MySqlCommand();
                         insert_cmd.Connection = conn;

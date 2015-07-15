@@ -1,0 +1,6 @@
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\bin\Debug\simpleLobbyServer.exe.config
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\bin\Debug\simpleLobbyServer.exe
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\bin\Debug\simpleLobbyServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\obj\Debug\simpleLobbyServer.exe
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\obj\Debug\simpleLobbyServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\obj\Debug\simpleLobbyServer.csprojResolveAssemblyReference.cache
