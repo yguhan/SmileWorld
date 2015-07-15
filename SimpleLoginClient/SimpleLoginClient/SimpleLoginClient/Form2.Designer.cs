@@ -36,13 +36,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView1
             // 
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(493, 336);
+            this.listView1.Size = new System.Drawing.Size(493, 278);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -71,24 +73,24 @@
             // 
             this.listView2.Location = new System.Drawing.Point(511, 93);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(203, 255);
+            this.listView2.Size = new System.Drawing.Size(203, 197);
             this.listView2.TabIndex = 4;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(511, 354);
+            this.button1.Location = new System.Drawing.Point(511, 296);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 84);
+            this.button1.Size = new System.Drawing.Size(203, 68);
             this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
+            this.button1.Text = "선택 게임방 입장";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(613, 354);
+            this.button2.Location = new System.Drawing.Point(511, 370);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 84);
+            this.button2.Size = new System.Drawing.Size(203, 68);
             this.button2.TabIndex = 6;
             this.button2.Text = "게임 종료";
             this.button2.UseVisualStyleBackColor = true;
@@ -96,17 +98,37 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(12, 354);
+            this.textBox4.Location = new System.Drawing.Point(12, 296);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(493, 84);
+            this.textBox4.Size = new System.Drawing.Size(493, 115);
             this.textBox4.TabIndex = 7;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(12, 417);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(402, 21);
+            this.textBox5.TabIndex = 8;
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(421, 417);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(84, 21);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "입력";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 450);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -132,5 +154,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Button button3;
     }
 }

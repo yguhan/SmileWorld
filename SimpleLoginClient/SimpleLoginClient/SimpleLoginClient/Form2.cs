@@ -21,5 +21,16 @@ namespace SimpleLoginClient
         {
             this.Close();
         }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            byte[] outStream = System.Text.Encoding.UTF8.GetBytes(textBox5.Text + "$");
+
+        }
     }
 }
