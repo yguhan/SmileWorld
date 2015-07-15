@@ -64,9 +64,9 @@ namespace simpleLoginServer
                     Console.WriteLine("mysql key = " + rdr["serial_no"]);
                     Console.WriteLine("mysql id = " + rdr["userid"]);
                     Console.WriteLine("mysql pwd = " + rdr["pwd"]);
-                    Console.WriteLine("mysql stat = " + rdr["games"]);
-                    Console.WriteLine("mysql stat = " + rdr["win"]);
-                    Console.WriteLine("mysql stat = " + rdr["lose"]);
+                    Console.WriteLine("mysql games = " + rdr["games"]);
+                    Console.WriteLine("mysql win = " + rdr["win"]);
+                    Console.WriteLine("mysql lose = " + rdr["lose"]);
 
                 }
 
