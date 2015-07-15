@@ -47,6 +47,7 @@ namespace SimpleLoginClient
                 Form form2 = new Form2();
                 form2.ShowDialog();
             }
+            this.Close();
             clientSocket.Close();
         }
 
@@ -54,9 +55,16 @@ namespace SimpleLoginClient
         {
             System.Net.Sockets.TcpClient clientSocket = new System.Net.Sockets.TcpClient();
             NetworkStream serverStream = default(NetworkStream);
-            clientSocket.Connect("127.0.0.1", 8000);
+            clientSocket.Connect("192.168.0.45", 8000);
             serverStream = clientSocket.GetStream();
-            byte[] outStream = System.Text.Encoding.ASCII.GetBytes("signin$" + textBox1.Text + "$" + textBox2.Text + "$");
+
+            UserInfo userinfo = new UserInfo();
+            userinfo.task = "signup";
+            userinfo.id = textBox1.Text;
+            userinfo.passwd = textBox2.Text;
+            string output = JsonConvert.SerializeObject(userinfo);
+
+            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
             int buffSize = 0;
