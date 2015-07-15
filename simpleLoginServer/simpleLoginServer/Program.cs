@@ -46,10 +46,10 @@ namespace simpleLoginServer
                 dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
                 UserInfo userinfo = JsonConvert.DeserializeObject<UserInfo>(dataFromClient);
 
-                string[] spstring = dataFromClient.Split('$');
-                string task = spstring[0];
-                string ID = spstring[1];
-                string passWD = spstring[2];
+                string task = userinfo.task;
+                string ID = userinfo.id;
+                string passWD = userinfo.passwd;
+
                 Console.WriteLine("Task: " +  task);
                 Console.WriteLine("ID: " + ID);
                 Console.WriteLine("passWD: " + passWD);
@@ -122,5 +122,12 @@ namespace simpleLoginServer
                 conn.Close();
             }
         }
+    }
+
+    public class UserInfo
+    {
+        public string task;
+        public string id;
+        public string passwd;
     }
 }
