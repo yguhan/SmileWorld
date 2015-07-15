@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Net.Sockets;
 using MySql.Data.MySqlClient;
-
+using Newtonsoft.Json;
 
 namespace simpleLoginServer
 {
@@ -44,6 +44,8 @@ namespace simpleLoginServer
                 NetworkStream networkStream = clientSocket.GetStream();
                 networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
                 dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
+                UserInfo userinfo = JsonConvert.DeserializeObject<UserInfo>(dataFromClient);
+
                 string[] spstring = dataFromClient.Split('$');
                 string task = spstring[0];
                 string ID = spstring[1];
