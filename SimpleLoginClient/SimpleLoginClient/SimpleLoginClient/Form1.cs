@@ -85,4 +85,10 @@ namespace SimpleLoginClient
         public string id;
         public string passwd;
     }
+
+    public class ChatInfo
+    {
+        public string id;
+        public string message;
+    }
 }

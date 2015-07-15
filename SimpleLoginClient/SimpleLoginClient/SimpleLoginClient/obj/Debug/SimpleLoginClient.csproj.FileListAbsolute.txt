@@ -30,3 +30,5 @@ C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\Si
 C:\Users\user\Documents\임시2\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.exe.config
 C:\Users\user\Documents\임시2\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.exe
 C:\Users\user\Documents\임시2\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\Newtonsoft.Json.xml

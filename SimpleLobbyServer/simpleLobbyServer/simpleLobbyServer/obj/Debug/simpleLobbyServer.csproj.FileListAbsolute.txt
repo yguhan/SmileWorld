@@ -4,3 +4,5 @@ C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\si
 C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\obj\Debug\simpleLobbyServer.exe
 C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\obj\Debug\simpleLobbyServer.pdb
 C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\obj\Debug\simpleLobbyServer.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLobbyServer\simpleLobbyServer\simpleLobbyServer\bin\Debug\Newtonsoft.Json.xml

@@ -13,3 +13,5 @@ C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\ob
 C:\Users\user\Documents\임시2\simpleLoginServer\simpleLoginServer\bin\Debug\simpleLoginServer.exe.config
 C:\Users\user\Documents\임시2\simpleLoginServer\simpleLoginServer\obj\Debug\simpleLoginServer.exe
 C:\Users\user\Documents\임시2\simpleLoginServer\simpleLoginServer\obj\Debug\simpleLoginServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\bin\Debug\Newtonsoft.Json.xml

@@ -38,10 +38,17 @@ namespace SimpleLoginClient
         {
             InitializeComponent();
             form1 = _form;
-            clientLobbySocket.Connect("192.168.0.45", 8000);
+            clientLobbySocket.Connect("192.168.0.45", 8001);
             serverStream = clientLobbySocket.GetStream();
 
-            byte[] outStream = System.Text.Encoding.ASCII.GetBytes("login$" + Form1.ActiveForm.Controls["textBox1"].Text.ToString() + "$" + Form1.ActiveForm.Controls["textBox2"].Text.ToString() + "$");
+            UserInfo userinfo = new UserInfo();
+            userinfo.id = Form1.ActiveForm.Controls["textBox1"].Text.ToString();
+            userinfo.passwd = 0.ToString();
+            userinfo.task = "login";
+
+            string output = JsonConvert.SerializeObject(userinfo);
+            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
+
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
             /*

@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Collections;
+using Newtonsoft.Json;
 
 
 namespace simpleLobbyServer
@@ -23,7 +24,7 @@ namespace simpleLobbyServer
             TcpClient clientSocket = default(TcpClient);
             int counter = 0;
             serverSocket.Start();
-            Console.WriteLine("Lobby In Server Started..");
+            Console.WriteLine("Lobby Server Started..");
 
             while (true)
             {
@@ -38,9 +39,12 @@ namespace simpleLobbyServer
                 NetworkStream networkStream = clientSocket.GetStream();
                 networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
                 dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
-                string[] spstring = dataFromClient.Split('$');
-                string ID = spstring[1];
+                UserInfo userinfo = JsonConvert.DeserializeObject<UserInfo>(dataFromClient);
+
+                string ID = userinfo.id;
                 clientsList.Add(ID, clientSocket);
+
+                Console.WriteLine("ID: " + ID);
                 broadcast(ID + " Joined ", ID, false);
                 Console.WriteLine("ID: " + ID);
                 handleClinet client = new handleClinet();
@@ -126,5 +130,12 @@ namespace simpleLobbyServer
             }//end while
         }//end doChat
     } //end class handleClinet
+
+    public class UserInfo
+    {
+        public string task;
+        public string id;
+        public string passwd;
+    }
 }//end namespace
 
