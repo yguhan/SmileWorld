@@ -23,7 +23,7 @@ namespace SimpleLoginClient
         {
             System.Net.Sockets.TcpClient clientSocket = new System.Net.Sockets.TcpClient();
             NetworkStream serverStream = default(NetworkStream);
-            clientSocket.Connect("192.168.0.45", 8000);
+            clientSocket.Connect("127.0.0.1", 8000);
             serverStream = clientSocket.GetStream();
 
             UserInfo userinfo = new UserInfo();
@@ -45,11 +45,11 @@ namespace SimpleLoginClient
 
             if (String.Compare("logged in!", returndata) == 0)
             {
-                Form form2 = new Form2();
+                clientSocket.Close();
+                Form form2 = new Form2(this);
                 form2.ShowDialog();
             }
             this.Close();
-            clientSocket.Close();
             
         }
 

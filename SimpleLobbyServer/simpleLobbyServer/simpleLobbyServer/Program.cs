@@ -40,13 +40,14 @@ namespace simpleLobbyServer
                 networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
                 dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
                 UserInfo userinfo = JsonConvert.DeserializeObject<UserInfo>(dataFromClient);
-
+       
                 string ID = userinfo.id;
                 clientsList.Add(ID, clientSocket);
-
-                Console.WriteLine("ID: " + ID);
+                //
+                dataFromClient = ID;
                 broadcast(ID + " Joined ", ID, false);
-                Console.WriteLine("ID: " + ID);
+                Console.WriteLine("Joined ID: " + ID);
+
                 handleClinet client = new handleClinet();
                 client.startClient(clientSocket, dataFromClient, clientsList);
             }       
@@ -113,14 +114,13 @@ namespace simpleLobbyServer
                 try
                 {
                     requestCount = requestCount + 1;
+
                     NetworkStream networkStream = clientSocket.GetStream();
                     networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
                     dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
                     dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
-                    Console.WriteLine("From client - " + clNo + " : " + dataFromClient);
+                    Console.WriteLine("From client - " + clNo + " : " + dataFromClient);  
                     rCount = Convert.ToString(requestCount);
-
-                    Console.WriteLine("{0}", dataFromClient);
                     Program.broadcast(dataFromClient, clNo, true);
                 }
                 catch (Exception ex)
