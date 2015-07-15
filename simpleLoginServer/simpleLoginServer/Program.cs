@@ -14,7 +14,7 @@ namespace simpleLoginServer
     {
         static void Main(string[] args)
         {
-            String strConn = "Server=192.168.0.45;Database=test;Uid=kimhoon;Pwd=1234;";
+            String strConn = "Server=192.168.0.45;Database=game;Uid=kimhoon;Pwd=1234;";
             MySqlConnection conn = null;
             try
             {
@@ -53,17 +53,21 @@ namespace simpleLoginServer
                 Console.WriteLine("passWD: " + passWD);
 
                 MySqlCommand cmd = new MySqlCommand();
-                cmd.Connection = conn;
                 cmd.CommandText = "SELECT * FROM `game`.`userdb` WHERE userid = '" + ID + "'";
-
+                cmd.Connection = conn;
+              
                 MySqlDataReader rdr = cmd.ExecuteReader();
+            
                 while (rdr.Read())
                 {
                     Console.WriteLine(rdr);
                     Console.WriteLine("mysql key = " + rdr["serial_no"]);
                     Console.WriteLine("mysql id = " + rdr["userid"]);
                     Console.WriteLine("mysql pwd = " + rdr["pwd"]);
-                    Console.WriteLine("mysql stat = " + rdr["stat"]);
+                    Console.WriteLine("mysql stat = " + rdr["games"]);
+                    Console.WriteLine("mysql stat = " + rdr["win"]);
+                    Console.WriteLine("mysql stat = " + rdr["lose"]);
+
                 }
 
                 if (task == "login")

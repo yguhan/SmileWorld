@@ -7,3 +7,6 @@ c:\users\user\documents\visual studio 2013\Projects\simpleLoginServer\simpleLogi
 C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\bin\Debug\simpleLoginServer.exe.config
 C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\obj\Debug\simpleLoginServer.exe
 C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\obj\Debug\simpleLoginServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\bin\Debug\simpleLoginServer.exe
+C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\bin\Debug\simpleLoginServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\simpleLoginServer\simpleLoginServer\obj\Debug\simpleLoginServer.csprojResolveAssemblyReference.cache

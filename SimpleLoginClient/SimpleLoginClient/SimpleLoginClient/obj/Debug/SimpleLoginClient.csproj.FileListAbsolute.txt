@@ -17,3 +17,13 @@ C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\ob
 C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Form2.resources
 C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Properties.Resources.resources
 C:\Users\user\Downloads\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.csproj.GenerateResource.Cache
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.exe.config
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.exe
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.exe
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\bin\Debug\SimpleLoginClient.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Form1.resources
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Form2.resources
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.Properties.Resources.resources
+C:\Users\user\Documents\GitHub\SmileWorld\SimpleLoginClient\SimpleLoginClient\SimpleLoginClient\obj\Debug\SimpleLoginClient.csproj.GenerateResource.Cache
