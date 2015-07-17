@@ -85,10 +85,13 @@ namespace SimpleLoginClient
         public string id;
         public string passwd;
     }
-
-    public class ChatInfo
+   
+    public class chatInfo
     {
+        public string task;
         public string id;
-        public string message;
+        public List<string> idList = new List<string>();
+        public string msg;
     }
+  
 }
