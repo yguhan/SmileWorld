@@ -20,8 +20,12 @@ namespace SimpleLoginClient
         NetworkStream serverStream = default(NetworkStream);
         string readData = null;
 
+
+        List<string> lobbyMem = new List<string>();
+
         Form1 form1;
         UserInfo userInfo = new UserInfo();
+        UserInfo reInfo = new UserInfo();
         
          public Form2()
      
@@ -44,6 +48,8 @@ namespace SimpleLoginClient
             userInfo.passwd = 0.ToString();
             userInfo.task = "login";
 
+            reInfo.task = "chatAll";
+
             string output = JsonConvert.SerializeObject(userInfo);
             byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
 
@@ -52,14 +58,20 @@ namespace SimpleLoginClient
        
             Thread ctThread = new Thread(getMessage);
             ctThread.Start();
+
+            listView2.View = View.Details;
+            listView2.BeginUpdate();
+
+
+
         }
 
-        /*
+        
         private void button1_Click(object sender, EventArgs e)
         {
 
         }
-        */
+        
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -68,16 +80,25 @@ namespace SimpleLoginClient
         private void button3_Click_1(object sender, EventArgs e)
         {
             chatInfo chInfo = new chatInfo();
-            chInfo.task = "chatAll";
+            chInfo.task = reInfo.task;
             chInfo.id = userInfo.id;
             chInfo.msg = textBox5.Text;
+
+            if (chInfo.task == "chatTarget") {
+                chInfo.chatList.Add(chInfo.id);
+                chInfo.chatList.Add(reInfo.id);
+            }
+  
             string output = JsonConvert.SerializeObject(chInfo);
             byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
 
+
+
+            reInfo.task = null;
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
-       
 
+            reInfo.task = "chatAll";
             /*
             byte[] outStream = System.Text.Encoding.ASCII.GetBytes(textBox5.Text + "$");
             serverStream.Write(outStream, 0, outStream.Length);
@@ -103,52 +124,68 @@ namespace SimpleLoginClient
                 byte[] inStream = new byte[10025];
                 buffSize = clientLobbySocket.ReceiveBufferSize;
                 serverStream.Read(inStream, 0, buffSize);
-                string returndata = System.Text.Encoding.ASCII.GetString(inStream);
-                //readData = returndata;
+
+
+                string returndata = null;
+                returndata = System.Text.Encoding.ASCII.GetString(inStream);
+                readData = returndata;
+
                 chatInfo chInfo = JsonConvert.DeserializeObject<chatInfo>(returndata);
-
-
-                //
-                //{
+                
                 if (chInfo != null)
                 {
-                    if (chInfo.task == "chatAll" || chInfo.task == "chatTarget")
-                    { 
+                    if (chInfo.task == "chatAll")
+                    {
                         readData = chInfo.id + " says : " + chInfo.msg;
                         msg();
                     }
-                    if (chInfo.task == "lobbyMem")
+                    else if (chInfo.task == "chatTarget")
                     {
-                       // listV(chInfo.id);
+                        readData = chInfo.chatList[0] + " says to " + chInfo.chatList[1] + " : " + chInfo.msg;
+                        msg();
                     }
-                 /*
-                        listView2.Clear();
-                        foreach (string member in chInfo.idList)
-                        {
-                            listView2.Items.Add(member);
-                        }
-                  */
-                    
+
+                    else if (chInfo.task == "lobbyIn")
+                    {
+
+                        readData = chInfo.msg;
+                        msg();;
+                        lobbyMem = chInfo.lobbyList;
+                        listV();
+                    }
                 }
-                    //}
+                
             }
         }
 
-        /*
-        private void listV(string Uid)
+       
+        private void listV()
         {
             if (this.InvokeRequired)
-                this.Invoke(new MethodInvoker( listV(string) ));
+                this.Invoke(new MethodInvoker(listV));
             else
             {
-                listView2.View = View.Details;
-                listView2.BeginUpdate();
+                listView2.Items.Clear();
+  
+                foreach (string mem in lobbyMem)
+                {
+                    ListViewItem lvi = new ListViewItem(mem);
+                    listView2.Items.Add(lvi);
+                }
 
-                ListViewItem lvi = new ListViewItem(Uid);
-                listView2.Items.Add(lvi);
+                
+                Console.WriteLine(lobbyMem);
             }
         }
-        */
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int indexNum = listView2.FocusedItem.Index;
+            string itemText = listView2.Items[indexNum].SubItems[0].Text;
+            reInfo.task = "chatTarget";
+            reInfo.id = itemText;
+        }
+    
 
         private void msg()
         {
@@ -157,43 +194,11 @@ namespace SimpleLoginClient
             else
                 textBox4.Text = textBox4.Text + Environment.NewLine + " >> " + readData;
         }
-      /*  
-        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            while (true)
-            {
 
-                serverStream = clientLobbySocket.GetStream();
-                int buffSize = 0;
-                byte[] inStream = new byte[10025];
-                buffSize = clientLobbySocket.ReceiveBufferSize;
-                serverStream.Read(inStream, 0, buffSize);
-                string returndata = System.Text.Encoding.ASCII.GetString(inStream);
-                //readData = returndata;
-                chatInfo chInfo = JsonConvert.DeserializeObject<chatInfo>(returndata);
-                if (chInfo != null)
-                {
-                    if (chInfo.task == "lobbyMem")
-                    {
-                        listView2.Clear();
-                        foreach (string member in chInfo.idList)
-                        {
-                            listView2.Items.Add(member);
-                        }
-                    }
-                }
-            }
-        }
-        */
+   
+ 
+ 
     }
      
-    /*
-    public class chatInfo
-    {
-        public string task;
-        public string id;
-        public List<string> idList = new List<string>();
-        public string msg;
-    }
-     */
+  
 }

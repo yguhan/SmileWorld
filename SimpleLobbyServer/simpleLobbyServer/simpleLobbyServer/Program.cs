@@ -34,7 +34,8 @@ namespace simpleLobbyServer
                 Console.WriteLine("Lobby Success");
 
                 byte[] bytesFrom = new byte[10025];
-            
+                byte[] bytesFrom2 = new byte[10025];
+           
                 Byte[] bytesTo = null;
                 string dataFromClient = null;
 
@@ -51,28 +52,28 @@ namespace simpleLobbyServer
                 dataFromClient = ID;
                 chatInfo chInfo = new chatInfo();
                 chInfo.id = ID;
-                chInfo.msg = ID + "Joined";
-                chInfo.task = "chatAll";
-                string output = JsonConvert.SerializeObject(chInfo);
-                //broadcast(output, chInfo.id, false);
+                chInfo.msg = "-----" + ID + ": Joined-----";
+                chInfo.task = "lobbyIn";
+                foreach (DictionaryEntry LobbyMem in clientsList)
+                {
+                    chInfo.lobbyList.Add(LobbyMem.Key.ToString());
+                }
 
-                // byte[] bytesFrom2 = new byte[10025];
+
+
+
+                string output = JsonConvert.SerializeObject(chInfo);
                 bytesFrom = Encoding.ASCII.GetBytes(output);
                 broadcast(bytesFrom);
                 Console.WriteLine("Joined ID: " + ID);
 
+                /*
                 chInfo.task = "lobbyMem";
                 int i = 0;
-                foreach (string lobbyMemId in clientsList.Keys)
-                {
-                    chInfo.idList.Add(lobbyMemId);
-                }
-
                 string  output2 = JsonConvert.SerializeObject(chInfo);
-                bytesFrom = Encoding.ASCII.GetBytes(output2);
-
-                broadcast(bytesFrom);
-
+                bytesFrom2 = Encoding.ASCII.GetBytes(output2);
+                broadcast(bytesFrom2);
+                */
 
                 //broadcast(ID + " Joined ", ID, false);
 
@@ -99,66 +100,28 @@ namespace simpleLobbyServer
             {
                 TcpClient broadcastSocket;
                 broadcastSocket = (TcpClient)Item.Value;
-                NetworkStream broadcastStream = broadcastSocket.GetStream();
-                
-                
+                NetworkStream broadcastStream = broadcastSocket.GetStream();          
                 byte[] broadcastBytes = byteForm;
-                //broadcastBytes = Encoding.ASCII.GetBytes(chInfo);
-                //broadcastBytes = byteForm;
-
-
                 broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
                 broadcastStream.Flush();
             }
         }  //end broadcast function
-        /*
-                public static void broadcast(string msg, string uName, bool flag)
-                {
-                    foreach (DictionaryEntry Item in clientsList)
-                    {
-                        TcpClient broadcastSocket;
-                        broadcastSocket = (TcpClient)Item.Value;
-                        NetworkStream broadcastStream = broadcastSocket.GetStream();
-                        Byte[] broadcastBytes = null;
 
-                        if (flag == true)
-                        {
-                            broadcastBytes = Encoding.ASCII.GetBytes(uName + " says : " + msg);
-                        }
-                        else
-                        {
-                            broadcastBytes = Encoding.ASCII.GetBytes(msg);
-                        }
-
-                        broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
-                        broadcastStream.Flush();
-                    }
-                }  //end broadcast function
-        
-                public static void unicast(string msg, string uName, string rName, bool flag)
-                {
-                    //foreach (DictionaryEntry Item in clientsList)
-            
-                    TcpClient unicastSocket;
-                    //unicastSocket = (TcpClient)Item.Value;
-                    unicastSocket = (TcpClient)clientsList[rName];
-                    NetworkStream unicastStream = unicastSocket.GetStream();
-                    Byte[] unicastBytes = null;
-
-                    if (flag == true)
-                    {
-                        unicastBytes = Encoding.ASCII.GetBytes(uName + " says : " + msg);
-                    }
-                    else
-                    {
-                        unicastBytes = Encoding.ASCII.GetBytes(msg);
-                    }
-
-                    unicastStream.Write(unicastBytes, 0, unicastBytes.Length);
-                    unicastStream.Flush();
-                }  //end unicast function   
-            }//end Main class
-                */
+        public static void multicast(byte[] byteForm)
+        {
+            string dataFromClient = System.Text.Encoding.ASCII.GetString(byteForm);
+            chatInfo chInfo = JsonConvert.DeserializeObject<chatInfo>(dataFromClient);
+            foreach (string targetName in chInfo.chatList) 
+            {
+                TcpClient multicastSocket;
+                multicastSocket = (TcpClient)clientsList[targetName];
+                NetworkStream multicastStream = multicastSocket.GetStream();     
+                byte[] multicastBytes = byteForm;
+                multicastStream.Write(multicastBytes, 0, multicastBytes.Length);
+                multicastStream.Flush();
+            }
+        }  //end multicast function   
+               
 
 
 
@@ -198,14 +161,14 @@ namespace simpleLobbyServer
                         //////////////////////
                         dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
                         chatInfo chInfo = JsonConvert.DeserializeObject<chatInfo>(dataFromClient);
-                        if (chInfo.task == "chatAll")
+                        if (chInfo.task == "lobbyIn" || chInfo.task == "chatAll")
                         {
                             Program.broadcast(bytesFrom);
                         }
-                        //else if (chInfo.task == "chatTarget")
-                        //{
-                        //   Program.unicast(chInfo.msg, chInfo.id, chInfo.idList[0], true);
-                        //}
+                        else if (chInfo.task == "chatTarget")
+                        {
+                            Program.multicast(bytesFrom);
+                        }
                         /*
                         NetworkStream networkStream = clientSocket.GetStream();
                         networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
@@ -235,7 +198,8 @@ namespace simpleLobbyServer
         {
             public string task;
             public string id;
-            public List<string> idList = new List<string>();
+            public List<string> chatList = new List<string>();
+            public List<string> lobbyList = new List<string>();
             public string msg;
         }
 

@@ -90,7 +90,8 @@ namespace SimpleLoginClient
     {
         public string task;
         public string id;
-        public List<string> idList = new List<string>();
+        public List<string> chatList = new List<string>();
+        public List<string> lobbyList = new List<string>();
         public string msg;
     }
   
