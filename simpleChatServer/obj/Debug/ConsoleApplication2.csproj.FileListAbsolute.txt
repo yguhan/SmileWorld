@@ -1,5 +1,0 @@
-C:\Users\user\Documents\GitHub\SmileWorld\simpleChatServer\bin\Debug\$safeprojectname$.exe.config
-C:\Users\user\Documents\GitHub\SmileWorld\simpleChatServer\bin\Debug\$safeprojectname$.exe
-C:\Users\user\Documents\GitHub\SmileWorld\simpleChatServer\bin\Debug\$safeprojectname$.pdb
-C:\Users\user\Documents\GitHub\SmileWorld\simpleChatServer\obj\Debug\$safeprojectname$.exe
-C:\Users\user\Documents\GitHub\SmileWorld\simpleChatServer\obj\Debug\$safeprojectname$.pdb
