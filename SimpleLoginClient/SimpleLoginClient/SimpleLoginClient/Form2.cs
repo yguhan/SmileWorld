@@ -16,22 +16,18 @@ namespace SimpleLoginClient
 {
     public partial class Form2 : Form
     {
-        System.Net.Sockets.TcpClient clientLobbySocket = new System.Net.Sockets.TcpClient();
-        NetworkStream serverStream = default(NetworkStream);
-        string readData = null;
-
+        Socket lobbySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         List<string> lobbyMem = new List<string>();
 
         Form1 form1;
         UserInfo userInfo = new UserInfo();
         UserInfo reInfo = new UserInfo();
+        static ChatClient chat;
         
          public Form2()
-     
          {
              InitializeComponent();
-             
 
          }
              
@@ -39,37 +35,26 @@ namespace SimpleLoginClient
         {
             InitializeComponent();
 
-           
             form1 = _form;
-            clientLobbySocket.Connect("127.0.0.1", 10000);
-            serverStream = clientLobbySocket.GetStream();
+            lobbySocket.Connect("127.0.0.1", 8001);
 
             userInfo.id = Form1.ActiveForm.Controls["textBox1"].Text.ToString();
             userInfo.passwd = 0.ToString();
             userInfo.task = "login";
-
-            reInfo.task = "chatAll";
-
             string output = JsonConvert.SerializeObject(userInfo);
-            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
-
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
+            byte[] outStream = System.Text.Encoding.UTF8.GetBytes(output);
+            lobbySocket.Send(outStream, SocketFlags.None);
        
-            Thread ctThread = new Thread(getMessage);
-            ctThread.Start();
-
             listView2.View = View.Details;
             listView2.BeginUpdate();
 
-
-
+            reInfo.task = "chatAll";
+            chat = new ChatClient(this, userInfo.id);
         }
 
         
         private void button1_Click(object sender, EventArgs e)
         {
-
         }
         
         private void button2_Click(object sender, EventArgs e)
@@ -77,85 +62,9 @@ namespace SimpleLoginClient
             this.Close();
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void sendMsg_Click(object sender, EventArgs e)
         {
-            chatInfo chInfo = new chatInfo();
-            chInfo.task = reInfo.task;
-            chInfo.id = userInfo.id;
-            chInfo.msg = textBox5.Text;
-
-            if (chInfo.task == "chatTarget") {
-                chInfo.chatList.Add(chInfo.id);
-                chInfo.chatList.Add(reInfo.id);
-            }
-  
-            string output = JsonConvert.SerializeObject(chInfo);
-            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
-
-
-
-            reInfo.task = null;
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
-
-            reInfo.task = "chatAll";
-            /*
-            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(textBox5.Text + "$");
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
-            */
-             /*
-               public class chatInfo
-                    {
-                        public string task;
-                        public string id;
-                        public string[] idList;
-                        public string msg;
-                    }
-            */
-        }
-
-        private void getMessage()
-        {
-            while (true)
-            {
-                serverStream = clientLobbySocket.GetStream();
-                int buffSize = 0;
-                byte[] inStream = new byte[10025];
-                buffSize = clientLobbySocket.ReceiveBufferSize;
-                serverStream.Read(inStream, 0, buffSize);
-
-
-                string returndata = null;
-                returndata = System.Text.Encoding.ASCII.GetString(inStream);
-                readData = returndata;
-
-                chatInfo chInfo = JsonConvert.DeserializeObject<chatInfo>(returndata);
-                
-                if (chInfo != null)
-                {
-                    if (chInfo.task == "chatAll")
-                    {
-                        readData = chInfo.id + " says : " + chInfo.msg;
-                        msg();
-                    }
-                    else if (chInfo.task == "chatTarget")
-                    {
-                        readData = chInfo.chatList[0] + " says to " + chInfo.chatList[1] + " : " + chInfo.msg;
-                        msg();
-                    }
-
-                    else if (chInfo.task == "lobbyIn")
-                    {
-
-                        readData = chInfo.msg;
-                        msg();;
-                        lobbyMem = chInfo.lobbyList;
-                        listV();
-                    }
-                }
-                
-            }
+            chat.sendMessage();
         }
 
        
@@ -172,8 +81,6 @@ namespace SimpleLoginClient
                     ListViewItem lvi = new ListViewItem(mem);
                     listView2.Items.Add(lvi);
                 }
-
-                
                 Console.WriteLine(lobbyMem);
             }
         }
@@ -185,20 +92,6 @@ namespace SimpleLoginClient
             reInfo.task = "chatTarget";
             reInfo.id = itemText;
         }
-    
 
-        private void msg()
-        {
-            if (this.InvokeRequired)
-                this.Invoke(new MethodInvoker(msg));
-            else
-                textBox4.Text = textBox4.Text + Environment.NewLine + " >> " + readData;
-        }
-
-   
- 
- 
     }
-     
-  
 }

@@ -34,9 +34,9 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.chatLog = new System.Windows.Forms.TextBox();
+            this.msgInput = new System.Windows.Forms.TextBox();
+            this.sendMsg = new System.Windows.Forms.Button();
             this.listView2 = new System.Windows.Forms.ListView();
             this.USER = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -90,30 +90,34 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBox4
+            // chatLog
             // 
-            this.textBox4.Location = new System.Drawing.Point(12, 296);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(493, 115);
-            this.textBox4.TabIndex = 7;
+            this.chatLog.AccessibleDescription = "chatLog";
+            this.chatLog.AccessibleName = "chagLog";
+            this.chatLog.Location = new System.Drawing.Point(12, 296);
+            this.chatLog.Multiline = true;
+            this.chatLog.Name = "chatLog";
+            this.chatLog.Size = new System.Drawing.Size(493, 115);
+            this.chatLog.TabIndex = 7;
             // 
-            // textBox5
+            // msgInput
             // 
-            this.textBox5.Location = new System.Drawing.Point(12, 417);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(402, 21);
-            this.textBox5.TabIndex = 8;
+            this.msgInput.Location = new System.Drawing.Point(12, 417);
+            this.msgInput.Name = "msgInput";
+            this.msgInput.Size = new System.Drawing.Size(402, 21);
+            this.msgInput.TabIndex = 8;
             // 
-            // button3
+            // sendMsg
             // 
-            this.button3.Location = new System.Drawing.Point(420, 417);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.sendMsg.AccessibleDescription = "sendMsg";
+            this.sendMsg.AccessibleName = "sendMsg";
+            this.sendMsg.Location = new System.Drawing.Point(420, 417);
+            this.sendMsg.Name = "sendMsg";
+            this.sendMsg.Size = new System.Drawing.Size(75, 23);
+            this.sendMsg.TabIndex = 10;
+            this.sendMsg.Text = "sendMsg";
+            this.sendMsg.UseVisualStyleBackColor = true;
+            this.sendMsg.Click += new System.EventHandler(this.sendMsg_Click);
             // 
             // listView2
             // 
@@ -136,9 +140,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 450);
             this.Controls.Add(this.listView2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.sendMsg);
+            this.Controls.Add(this.msgInput);
+            this.Controls.Add(this.chatLog);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox3);
@@ -158,12 +162,12 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button sendMsg;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ColumnHeader USER;
+        public System.Windows.Forms.TextBox chatLog;
+        public System.Windows.Forms.TextBox msgInput;
     }
 }

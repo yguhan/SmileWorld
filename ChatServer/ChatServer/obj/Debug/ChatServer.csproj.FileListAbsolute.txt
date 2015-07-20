@@ -5,3 +5,10 @@ c:\users\user\documents\visual studio 2013\Projects\ChatServer\ChatServer\bin\De
 c:\users\user\documents\visual studio 2013\Projects\ChatServer\ChatServer\obj\Debug\ChatServer.csprojResolveAssemblyReference.cache
 c:\users\user\documents\visual studio 2013\Projects\ChatServer\ChatServer\obj\Debug\ChatServer.exe
 c:\users\user\documents\visual studio 2013\Projects\ChatServer\ChatServer\obj\Debug\ChatServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\ChatServer\ChatServer\bin\Debug\ChatServer.exe.config
+C:\Users\user\Documents\GitHub\SmileWorld\ChatServer\ChatServer\obj\Debug\ChatServer.exe
+C:\Users\user\Documents\GitHub\SmileWorld\ChatServer\ChatServer\obj\Debug\ChatServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\ChatServer\ChatServer\bin\Debug\ChatServer.exe
+C:\Users\user\Documents\GitHub\SmileWorld\ChatServer\ChatServer\bin\Debug\ChatServer.pdb
+C:\Users\user\Documents\GitHub\SmileWorld\ChatServer\ChatServer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\user\Documents\GitHub\SmileWorld\ChatServer\ChatServer\obj\Debug\ChatServer.csprojResolveAssemblyReference.cache
