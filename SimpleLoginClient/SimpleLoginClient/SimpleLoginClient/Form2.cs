@@ -41,7 +41,7 @@ namespace SimpleLoginClient
 
            
             form1 = _form;
-            clientLobbySocket.Connect("127.0.0.1", 8001);
+            clientLobbySocket.Connect("127.0.0.1", 10000);
             serverStream = clientLobbySocket.GetStream();
 
             userInfo.id = Form1.ActiveForm.Controls["textBox1"].Text.ToString();
