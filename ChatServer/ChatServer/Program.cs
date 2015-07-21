@@ -54,9 +54,15 @@ namespace ConsoleApplication1
             dataFromClient = System.Text.Encoding.UTF8.GetString(bytesFrom);
             chatInfo chatInfo = JsonConvert.DeserializeObject<chatInfo>(dataFromClient);
 
-            socketToClient.Add(ClientSocket, dataFromClient);
-            clientToSocket.Add(dataFromClient, ClientSocket);
-            broadcast(chatInfo);
+            socketToClient.Add(ClientSocket, chatInfo.id);
+            clientToSocket.Add(chatInfo.id, ClientSocket);
+            if (chatInfo.task == "chatAll") {
+                broadcast(chatInfo);
+            }
+            else if (chatInfo.task == "chatTarget")
+            {
+                multicast(chatInfo);
+            }
             Console.WriteLine(chatInfo.id + " Joined ");
 
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
@@ -79,16 +85,19 @@ namespace ConsoleApplication1
                 byte[] bytesFrom = e.Buffer;    // 데이터 수신
                 string dataFromClient = Encoding.UTF8.GetString(szData);
                 chatInfo chatInfo = JsonConvert.DeserializeObject<chatInfo>(dataFromClient);
-                broadcast(chatInfo);
-                Console.WriteLine("Message Received: " + chatInfo.msg);
-
-                //string Test = sData.Replace("\0", "").Trim();
-                for (int i = 0; i < szData.Length; i++)
+                if (chatInfo != null)
                 {
-                    szData[i] = 0;
+                    broadcast(chatInfo);
+                    Console.WriteLine("Message Received: " + chatInfo.msg);
+
+                    //string Test = sData.Replace("\0", "").Trim();
+                    for (int i = 0; i < szData.Length; i++)
+                    {
+                        szData[i] = 0;
+                    }
+                    e.SetBuffer(szData, 0, 1024);
+                    ClientSocket.ReceiveAsync(e);
                 }
-                e.SetBuffer(szData, 0, 1024);
-                ClientSocket.ReceiveAsync(e);
             }
             else
             {
@@ -134,7 +143,6 @@ namespace ConsoleApplication1
         public string task;
         public string id;
         public List<string> chatList = new List<string>();
-        public List<string> lobbyList = new List<string>();
         public string msg;
     }
 }

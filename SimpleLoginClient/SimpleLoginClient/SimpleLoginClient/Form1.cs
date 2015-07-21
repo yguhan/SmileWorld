@@ -95,4 +95,12 @@ namespace SimpleLoginClient
         public string msg;
     }
   
+    public class lobbyInfo
+    {
+        public string task;
+        public string id;
+        public List<string> lobbyList = new List<string>();
+        public string msg;
+    }
+  
 }

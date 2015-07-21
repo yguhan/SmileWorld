@@ -14,43 +14,46 @@ namespace SimpleLoginClient
     {
         Socket chatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         Form2 form;
-        string userId;
+        chatInfo usrInfo = new chatInfo();
+        //string receiverId;
         string readData = null;
 
         public ChatClient()
         {
         }
 
-        public ChatClient(Form2 form2, string Id)
+        public ChatClient(Form2 form2, chatInfo userInfo)
         {
             form = form2;
-            userId = Id;
+            usrInfo = userInfo;
             chatSocket.Connect("127.0.0.1", 10000);
             Thread ctThread = new Thread(getMessage);
             ctThread.Start();
         }
 
-        public void sendMessage()
+        public void sendMessage(chatInfo chInfoFromForm2)
         {
-            chatInfo chInfo = new chatInfo();
-            chInfo.task = "chatAll";
-            chInfo.id = userId;
+            //chInfo.msg = form.msgInput.Text;
+
+            chatInfo chInfo = chInfoFromForm2;
+            
+            //chInfo.id = usrInfo.id;
+           // chInfo.task = task;
             chInfo.msg = form.msgInput.Text;
-
-            if (chInfo.task == "chatTarget")
+            if (chInfo.task == "chatTarget" || chInfo.task =="chatAll")
             {
-                chInfo.chatList.Add(chInfo.id);
-            }
-
-            string output = JsonConvert.SerializeObject(chInfo);
-            byte[] outStream = System.Text.Encoding.UTF8.GetBytes(output);
-
-
-
-
-            chatSocket.Send(outStream, SocketFlags.None);
-
-
+                if (chInfo.task == "chatTarget")
+                {
+                    foreach (string chatMem in usrInfo.chatList)
+                    {
+                        chInfo.chatList.Add(usrInfo.id);
+                    }
+                }
+                string output = JsonConvert.SerializeObject(chInfo);
+                byte[] outStream = System.Text.Encoding.UTF8.GetBytes(output);
+                chatSocket.Send(outStream, SocketFlags.None);
+                form.changeTask("chatAll");
+            }             
         }
 
         private void getMessage()
@@ -67,7 +70,7 @@ namespace SimpleLoginClient
                 readData = returndata;
 
                 chatInfo chInfo = JsonConvert.DeserializeObject<chatInfo>(returndata);
-
+                usrInfo = chInfo;
                 if (chInfo != null)
                 {
                     if (chInfo.task == "chatAll")
@@ -80,13 +83,13 @@ namespace SimpleLoginClient
                         readData = chInfo.chatList[0] + " says to " + chInfo.chatList[1] + " : " + chInfo.msg;
                         msg();
                     }
-
+                        /*
                     else if (chInfo.task == "lobbyIn")
                     {
-
-                        readData = chInfo.msg;
-                        msg();
+                        form.listV();
+                        //msg();
                     }
+                   */
                 }
 
             }
@@ -99,5 +102,13 @@ namespace SimpleLoginClient
             else
                 form.chatLog.Text = form.chatLog.Text + Environment.NewLine + " >> " + readData;
         }
+
+        public chatInfo chInfoFromChat() 
+        {
+            return usrInfo;
+        }
+
+
+
     }
 }
