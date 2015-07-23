@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Collections;
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace ChatServer
 {
     class Program
     {
@@ -48,22 +48,25 @@ namespace ConsoleApplication1
             Console.WriteLine("Accepting connection");
 
 
-            byte[] bytesFrom = new byte[10025];
+            byte[] bytesFrom = new byte[LENGTH.MAX_PACKET_LEN];
             string dataFromClient = null;
             ClientSocket.Receive(bytesFrom);
             dataFromClient = System.Text.Encoding.UTF8.GetString(bytesFrom);
-            chatInfo chatInfo = JsonConvert.DeserializeObject<chatInfo>(dataFromClient);
+            ChatProtocol chatProtocol = JsonConvert.DeserializeObject<ChatProtocol>(dataFromClient);
 
-            socketToClient.Add(ClientSocket, chatInfo.id);
-            clientToSocket.Add(chatInfo.id, ClientSocket);
-            if (chatInfo.task == "chatAll") {
-                broadcast(chatInfo);
+            socketToClient.Add(ClientSocket, chatProtocol.sender_id);
+            clientToSocket.Add(chatProtocol.sender_id, ClientSocket);
+
+            if (chatProtocol.chat_target == CHAT_TARGET.CHAT_ALL) {
+                broadcast(chatProtocol);
             }
-            else if (chatInfo.task == "chatTarget")
+            else if (chatProtocol.chat_target == CHAT_TARGET.CHAT_WHISPER 
+                || chatProtocol.chat_target == CHAT_TARGET.CHAT_GAMEROOM)
             {
-                multicast(chatInfo);
+                multicast(chatProtocol);
             }
-            Console.WriteLine(chatInfo.id + " Joined ");
+
+            Console.WriteLine(chatProtocol.sender_id + " Joined ");
 
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
             szData = new byte[1024];
@@ -84,11 +87,11 @@ namespace ConsoleApplication1
             {
                 byte[] bytesFrom = e.Buffer;    // 데이터 수신
                 string dataFromClient = Encoding.UTF8.GetString(szData);
-                chatInfo chatInfo = JsonConvert.DeserializeObject<chatInfo>(dataFromClient);
-                if (chatInfo != null)
+                ChatProtocol chatProtocol = JsonConvert.DeserializeObject<ChatProtocol>(dataFromClient);
+                if (chatProtocol != null)
                 {
-                    broadcast(chatInfo);
-                    Console.WriteLine("Message Received: " + chatInfo.msg);
+                    broadcast(chatProtocol);
+                    Console.WriteLine("Message Received: " + chatProtocol.message);
 
                     //string Test = sData.Replace("\0", "").Trim();
                     for (int i = 0; i < szData.Length; i++)
@@ -110,9 +113,9 @@ namespace ConsoleApplication1
         }
 
 
-        public static void broadcast(chatInfo chInfo)
+        public static void broadcast(ChatProtocol chatProtocol)
         {
-            string output = JsonConvert.SerializeObject(chInfo);
+            string output = JsonConvert.SerializeObject(chatProtocol);
             Byte[] broadcastBytes = null;
             broadcastBytes = Encoding.UTF8.GetBytes(output);
 
@@ -124,25 +127,17 @@ namespace ConsoleApplication1
             }
         }  //end broadcast function
 
-        public static void multicast(chatInfo chInfo)
+        public static void multicast(ChatProtocol chatProtocol)
         {
-            string output = JsonConvert.SerializeObject(chInfo);
+            string output = JsonConvert.SerializeObject(chatProtocol);
             Byte[] multicastBytes = null;
 
-            foreach (string targetName in chInfo.chatList)
+            foreach (string targetName in chatProtocol.targetUserList)
             {
                 Socket multicastSocket;
                 multicastSocket = (Socket)clientToSocket[targetName];
                 multicastSocket.Send(multicastBytes, SocketFlags.None);
             }
         }  //end multicast function   
-    }
-
-    public class chatInfo
-    {
-        public string task;
-        public string id;
-        public List<string> chatList = new List<string>();
-        public string msg;
     }
 }

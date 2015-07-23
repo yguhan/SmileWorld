@@ -12,76 +12,90 @@ namespace SimpleLoginClient
 {
     class LobbyClient
     {
-        Socket lobbySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        Socket lobbySocket;
         Form2 form;
-        lobbyInfo lbInfo = new lobbyInfo();
-        //string receiverId;
+        LobbyClientInformation lobbyClientInfo;
         string readData = null;
 
         public LobbyClient()
         {
+
         }
 
-        public LobbyClient(Form2 form2, lobbyInfo userInfo)
+        public LobbyClient(Form2 form2, LobbyClientInformation userInfo)
         {
+            // LobbyClient 멤버변수 할당
+            lobbySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             form = form2;
-            lbInfo = userInfo;
+            lobbyClientInfo = new LobbyClientInformation();
+            lobbyClientInfo = userInfo;
+
+            //socket을 로비 서버에 연결, getMessage 스레드 시작
             lobbySocket.Connect("127.0.0.1", 8001);
-            
             Thread ctThread = new Thread(getMessage);
             ctThread.Start();
         }
 
-        public void sendMessage(lobbyInfo lbInfoFromForm2)
+        // 현재 로그인한 클라이언트의 정보를 로비 서버에 전송해 주는 메소드
+        public void sendMessage(LobbyClientInformation lobbyClientInfoFromForm2)
         {
-            //lobbyInfo 
-            lbInfo = lbInfoFromForm2;
-            
-            /*
-            lobbyInfo chInfo = new lobbyInfo();
-            
-            chInfo.id = lbInfo.id;
-            chInfo.task = lbInfo.task;
-            chInfo.msg = form.msgInput.Text;
-            */
+            User tempUser = new User(lobbyClientInfoFromForm2.status, lobbyClientInfoFromForm2.user_id);
 
-            string output = JsonConvert.SerializeObject(lbInfo);
-            byte[] outStream = System.Text.Encoding.UTF8.GetBytes(output);
+            // 폼으로부터 전달받은 정보를 클라이언트에 저장
+            lobbyClientInfo = lobbyClientInfoFromForm2;
+            
+            // 데이터를 Json 형식으로 변환하여 소켓을 통해 로비 서버로 전송
+            string output = JsonConvert.SerializeObject(tempUser);
+            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(output);
 
             lobbySocket.Send(outStream, SocketFlags.None);
-
-
         }
 
+        // 다른 유저가 로비 서버에 접속했을 때 서버가 보내는 메세지를 받는 메소드
+        // 스레드로 만들어 실행
         private void getMessage()
         {
             while (true)
             {
+                // 로비 서버로부터 메세지가 오면 byte 형식으로 읽음
                 int buffSize = 0;
-                byte[] inStream = new byte[10025];
+                byte[] inStream = new byte[LENGTH.MAX_PACKEN_LEN];
                 buffSize = lobbySocket.ReceiveBufferSize;
                 lobbySocket.Receive(inStream);
 
                 string returndata = null;
-                returndata = System.Text.Encoding.UTF8.GetString(inStream);
+                returndata = System.Text.Encoding.ASCII.GetString(inStream);
                 readData = returndata;
 
-                lobbyInfo getInfo = JsonConvert.DeserializeObject<lobbyInfo>(returndata);
-                lbInfo = getInfo;
-                if (getInfo != null)
+                // byte 형식으로 받은 데이터를 Json 형식으로 변환
+                LobbyClientInformation getNewClientInfo = JsonConvert.DeserializeObject<LobbyClientInformation>(returndata);
+
+                User user = new User(getNewClientInfo.status, getNewClientInfo.user_id);
+
+                // 새로 온 사람을 로비 접속 유저 리스트에 삽입
+                // !!!!!!!!!!!!!!!!!!!!!!!나중에 경우에 따라 수정 필요!!!!!!!!!!!!!!!!!!!!
+                lobbyClientInfo.lobbyList.Add(user);
+
+                if (getNewClientInfo != null)
                 {
-                    if (getInfo.task == "lobbyIn")
+                    // 새 유저가 LOBBY_IN 의 상태로 로비에 접속했으면
+                    if (getNewClientInfo.status == LOBBY_STATUS.LOBBY_IN)
                     {
-                        readData = "--------------------" + getInfo.id + " Joined ! --------------------";
+                        readData = "--------------------" + getNewClientInfo.user_id + " Joined ! --------------------";
                         msg();
                         form.listV();
-                        //msg();
+                    }
+
+                    // 유저가 로비를 나갔으면 (추후 구현)
+                    else if (getNewClientInfo.status == LOBBY_STATUS.LOBBY_OUT)
+                    {
+
                     }
                 }
-
             }
         }
 
+        // 받은 메시지를 로비 폼의 채팅방에 뿌려주는 메소드
         private void msg()
         {
             if (form.InvokeRequired)
@@ -90,12 +104,9 @@ namespace SimpleLoginClient
                 form.chatLog.Text = form.chatLog.Text + Environment.NewLine + " >> " + readData;
         }
 
-        public lobbyInfo lbInfoFromLobby()
+        public LobbyClientInformation lobbyClientInfoFromLobby()
         {
-            return lbInfo;
+            return lobbyClientInfo;
         }
-
-
-
     }
 }

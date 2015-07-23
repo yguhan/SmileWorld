@@ -15,12 +15,11 @@ namespace simpleLobbyServer
 {
     class Program
     {
-        public static Hashtable clientsList = new Hashtable();
-
+        public static RoomInformation roominfo = new RoomInformation();
+        public static UserInformation userinfo = new UserInformation();
 
         static void Main(string[] args)
         {
-
             TcpListener serverSocket = new TcpListener(8001);
             TcpClient clientSocket = default(TcpClient);
             int counter = 0;
@@ -33,8 +32,8 @@ namespace simpleLobbyServer
                 clientSocket = serverSocket.AcceptTcpClient();
                 Console.WriteLine("Lobby Success");
 
-                byte[] bytesFrom = new byte[10025];
-                byte[] bytesFrom2 = new byte[10025];
+                byte[] bytesFrom = new byte[LENGTH.MAX_PACKET_LEN];
+                byte[] bytesFrom2 = new byte[LENGTH.MAX_PACKET_LEN];
            
                 Byte[] bytesTo = null;
                 string dataFromClient = null;
@@ -42,88 +41,82 @@ namespace simpleLobbyServer
                 NetworkStream networkStream = clientSocket.GetStream();
                 networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
                 dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
-                lobbyInfo userinfo = JsonConvert.DeserializeObject<lobbyInfo>(dataFromClient);
 
-                Console.WriteLine(userinfo);
+                User user = new User();
+                user = JsonConvert.DeserializeObject<User>(dataFromClient);
 
-                lobbyInfo chInfo = new lobbyInfo();
-                chInfo = userinfo;
 
-                clientsList.Add(chInfo.id, clientSocket);
-                dataFromClient = chInfo.id;
-                foreach (DictionaryEntry LobbyMem in clientsList)
-                {
-                    chInfo.lobbyList.Add(LobbyMem.Key.ToString());
-                }
 
-                string output = JsonConvert.SerializeObject(chInfo);
+
+
+
+
+
+
+
+                LobbyClientInformation lobbyClientInfo = new LobbyClientInformation();
+                lobbyClientInfo.status = LOBBY_STATUS.LOBBY_IN;
+                lobbyClientInfo.user_id = user.user_id;
+                lobbyClientInfo.lobbyList = userinfo.userlistwithoutsocket;
+                
+
+
+
+
+
+
+
+
+
+
+                UserWithSocket userWithSocket = new UserWithSocket(user, clientSocket);
+                
+                Console.WriteLine(user);
+
+                userinfo.myInformation = user;
+
+                userinfo.userlist.Add(userWithSocket);
+
+                string output = JsonConvert.SerializeObject(lobbyClientInfo);
                 bytesFrom = Encoding.ASCII.GetBytes(output);
                 broadcast(bytesFrom);
-                Console.WriteLine("Joined ID: " + chInfo.id);
-
-                /*
-                chInfo.task = "lobbyMem";
-                int i = 0;
-                string  output2 = JsonConvert.SerializeObject(chInfo);
-                bytesFrom2 = Encoding.ASCII.GetBytes(output2);
-                broadcast(bytesFrom2);
-                */
-
-                //broadcast(ID + " Joined ", ID, false);
+                Console.WriteLine("Joined ID: " + userinfo.myInformation.user_id);
 
                 handleClinet client = new handleClinet();
-                client.startClient(clientSocket, dataFromClient, clientsList);
+                client.startClient(userWithSocket.clientSocket, dataFromClient, userinfo.userlist);
             }
-
 
             clientSocket.Close();
             serverSocket.Stop();
             Console.WriteLine("exit");
             Console.ReadLine();
         }
+
         public static void broadcast(byte[] byteForm)
         {
 
-            foreach (DictionaryEntry Item in clientsList)
+            foreach (UserWithSocket userWithSocket in userinfo.userlist)
             {
                 TcpClient broadcastSocket;
-                broadcastSocket = (TcpClient)Item.Value;
+                broadcastSocket = userWithSocket.clientSocket;
                 NetworkStream broadcastStream = broadcastSocket.GetStream();          
                 byte[] broadcastBytes = byteForm;
                 broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
                 broadcastStream.Flush();
             }
-        }  //end broadcast function
-/*
-        public static void multicast(byte[] byteForm)
-        {
-            string dataFromClient = System.Text.Encoding.ASCII.GetString(byteForm);
-            chatInfo chInfo = JsonConvert.DeserializeObject<chatInfo>(dataFromClient);
-            foreach (string targetName in chInfo.chatList) 
-            {
-                TcpClient multicastSocket;
-                multicastSocket = (TcpClient)clientsList[targetName];
-                NetworkStream multicastStream = multicastSocket.GetStream();     
-                byte[] multicastBytes = byteForm;
-                multicastStream.Write(multicastBytes, 0, multicastBytes.Length);
-                multicastStream.Flush();
-            }
-        }  //end multicast function   
-               
-        */
-
+        }
 
         public class handleClinet
         {
             TcpClient clientSocket;
             string clNo;
-            Hashtable clientsList;
+            List<UserWithSocket> userlist;
 
-            public void startClient(TcpClient inClientSocket, string clineNo, Hashtable cList)
+            public void startClient(TcpClient inClientSocket, string clineNo, List<UserWithSocket> userlist)
             {
                 this.clientSocket = inClientSocket;
                 this.clNo = clineNo;
-                this.clientsList = cList;
+                this.userlist = userlist;
                 Thread ctThread = new Thread(doChat);
                 ctThread.Start();
             }
@@ -131,7 +124,7 @@ namespace simpleLobbyServer
             private void doChat()
             {
                 int requestCount = 0;
-                byte[] bytesFrom = new byte[10025];
+                byte[] bytesFrom = new byte[LENGTH.MAX_PACKET_LEN];
                 string dataFromClient = null;
                 Byte[] sendBytes = null;
                 string serverResponse = null;
@@ -146,10 +139,9 @@ namespace simpleLobbyServer
 
                         NetworkStream networkStream = clientSocket.GetStream();
                         networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
-                        //////////////////////
                         dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
-                        lobbyInfo chInfo = JsonConvert.DeserializeObject<lobbyInfo>(dataFromClient);
-                        if (chInfo.task == "lobbyIn")
+                        User user = JsonConvert.DeserializeObject<User>(dataFromClient);
+                        if (user.status == LOBBY_STATUS.LOBBY_IN)
                         {
                             Program.broadcast(bytesFrom);
                         }
@@ -167,26 +159,10 @@ namespace simpleLobbyServer
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.ToString());
+                        break;
                     }
                 }//end while
             }//end doChat
         } //end class handleClinet
-
-        public class UserInfo
-        {
-            public string task;
-            public string id;
-            public string passwd;
-        }
-
-        public class lobbyInfo
-        {
-            public string task;
-            public string id;
-            public List<string> lobbyList = new List<string>();
-            public string msg;
-        }
-
     }//end namespace
-
 }
