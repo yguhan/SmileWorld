@@ -76,22 +76,22 @@ namespace SimpleLoginClient
                 // !!!!!!!!!!!!!!!!!!!!!!!나중에 경우에 따라 수정 필요!!!!!!!!!!!!!!!!!!!!
                 lobbyClientInfo.lobbyList.Add(user);
 
-                if (getNewClientInfo != null)
-                {
-                    // 새 유저가 LOBBY_IN 의 상태로 로비에 접속했으면
-                    if (getNewClientInfo.status == LOBBY_STATUS.LOBBY_IN)
-                    {
-                        readData = "--------------------" + getNewClientInfo.user_id + " Joined ! --------------------";
-                        msg();
-                        form.listV();
-                    }
+                //if (getNewClientInfo != null)
+                //{
+                //    // 새 유저가 LOBBY_IN 의 상태로 로비에 접속했으면
+                //    if (getNewClientInfo.status == LOBBY_STATUS.LOBBY_IN)
+                //    {
+                //        readData = "--------------------" + getNewClientInfo.user_id + " Joined ! --------------------";
+                //        msg();
+                //        form.listV();
+                //    }
 
-                    // 유저가 로비를 나갔으면 (추후 구현)
-                    else if (getNewClientInfo.status == LOBBY_STATUS.LOBBY_OUT)
-                    {
+                //    // 유저가 로비를 나갔으면 (추후 구현)
+                //    else if (getNewClientInfo.status == LOBBY_STATUS.LOBBY_OUT)
+                //    {
 
-                    }
-                }
+                //    }
+                //}
             }
         }
 
