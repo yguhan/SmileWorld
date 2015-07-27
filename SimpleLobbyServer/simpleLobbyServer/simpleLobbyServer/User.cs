@@ -52,7 +52,8 @@ namespace simpleLobbyServer
             userlistwithoutsocket = new List<User>();
         }
 
-        public bool getNewUser(int status, string user_id, TcpClient clientSocket){
+        public bool getNewUser(int status, string user_id, TcpClient clientSocket)
+        {
             try
             {
                 User user = new User(status, user_id);
@@ -75,5 +76,5 @@ namespace simpleLobbyServer
         }
     }
 
-    
+
 }

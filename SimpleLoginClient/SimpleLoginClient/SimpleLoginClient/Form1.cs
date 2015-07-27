@@ -38,7 +38,7 @@ namespace SimpleLoginClient
 
             // 로그인 리턴 정보를 받기 위해 새로운 버퍼 생성
             int buffSize = 0;
-            byte[] inStream = new byte[LENGTH.MAX_PACKEN_LEN];
+            byte[] inStream = new byte[LENGTH.MAX_PACKET_LEN];
             buffSize = clientSocket.ReceiveBufferSize;
 
             // byte 형식으로 정보 가져와서 Json 형식으로 변환
@@ -92,7 +92,7 @@ namespace SimpleLoginClient
 
             // 가입 리턴 정보를 받기 위해 새로운 버퍼 생성
             int buffSize = 0;
-            byte[] inStream = new byte[LENGTH.MAX_PACKEN_LEN];
+            byte[] inStream = new byte[LENGTH.MAX_PACKET_LEN];
             buffSize = clientSocket.ReceiveBufferSize;
 
             // byte 형식으로 정보 가져와서 Json 형식으로 변환

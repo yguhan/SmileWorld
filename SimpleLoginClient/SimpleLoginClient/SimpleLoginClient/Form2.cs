@@ -38,6 +38,8 @@ namespace SimpleLoginClient
             // 로그인 폼에서 넘겨받은 id를 클라이언트의 id 정보에 적용
             chatClientInfo.user_id = Form1.ActiveForm.Controls["textBox1"].Text.ToString();
             lobbyClientInfo.user_id = Form1.ActiveForm.Controls["textBox1"].Text.ToString();
+
+            UserData.Text = chatClientInfo.user_id;
             
             // lobby status 변환
             lobbyClientInfo.status = LOBBY_STATUS.LOBBY_IN;
@@ -104,6 +106,11 @@ namespace SimpleLoginClient
             chatClientInfo.chat_target = CHAT_TARGET.CHAT_WHISPER;
             chatClientInfo.roomUserList.Add(chatClientInfo.user_id);
             chatClientInfo.roomUserList.Add(selectedUserName);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

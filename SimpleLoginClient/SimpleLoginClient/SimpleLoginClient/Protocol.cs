@@ -12,7 +12,7 @@ namespace SimpleLoginClient
         public const int MAX_USERID_LEN = 50;
         public const int MAX_PASSWD_LEN = 32;
         public const int MAX_CHATMESSAGE_LEN = 512;
-        public const int MAX_PACKEN_LEN = 8192;
+        public const int MAX_PACKET_LEN = 8192;
     }
 
     static class LOGIN_RESULT

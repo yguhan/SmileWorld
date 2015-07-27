@@ -59,7 +59,7 @@ namespace SimpleLoginClient
             {
                 // 로비 서버로부터 메세지가 오면 byte 형식으로 읽음
                 int buffSize = 0;
-                byte[] inStream = new byte[LENGTH.MAX_PACKEN_LEN];
+                byte[] inStream = new byte[LENGTH.MAX_PACKET_LEN];
                 buffSize = lobbySocket.ReceiveBufferSize;
                 lobbySocket.Receive(inStream);
 
@@ -68,13 +68,13 @@ namespace SimpleLoginClient
                 readData = returndata;
 
                 // byte 형식으로 받은 데이터를 Json 형식으로 변환
-                LobbyClientInformation getNewClientInfo = JsonConvert.DeserializeObject<LobbyClientInformation>(returndata);
-
-                User user = new User(getNewClientInfo.status, getNewClientInfo.user_id);
+                List<User> getNewClientInfo = JsonConvert.DeserializeObject<List<User>>(returndata);
+                lobbyClientInfo.lobbyList = getNewClientInfo;
+                form.listV();
 
                 // 새로 온 사람을 로비 접속 유저 리스트에 삽입
                 // !!!!!!!!!!!!!!!!!!!!!!!나중에 경우에 따라 수정 필요!!!!!!!!!!!!!!!!!!!!
-                lobbyClientInfo.lobbyList.Add(user);
+                 // lobbyClientInfo.lobbyList.Add(user);
 
                 //if (getNewClientInfo != null)
                 //{

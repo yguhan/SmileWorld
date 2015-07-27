@@ -87,7 +87,7 @@ namespace SimpleLoginClient
             {
                 // 채팅 서버로부터 메세지가 오면 byte 형식으로 읽음
                 int buffSize = 0;
-                byte[] inStream = new byte[LENGTH.MAX_PACKEN_LEN];
+                byte[] inStream = new byte[LENGTH.MAX_PACKET_LEN];
                 buffSize = chatSocket.ReceiveBufferSize;
                 chatSocket.Receive(inStream);
 
@@ -127,7 +127,7 @@ namespace SimpleLoginClient
             if (form.InvokeRequired)
                 form.Invoke(new MethodInvoker(msg));
             else
-                form.chatLog.Text = form.chatLog.Text + Environment.NewLine + " >> " + readData;
+                form.chatLog.AppendText(">> " + readData + "\n");
         }
 
         /*

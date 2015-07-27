@@ -77,7 +77,7 @@ namespace ChatServer
             if (ClientSocket.Connected && e.BytesTransferred > 0)
             {
                 byte[] bytesFrom = e.Buffer;    // 데이터 수신
-                string dataFromClient = Encoding.UTF8.GetString(szData);
+                string dataFromClient = Encoding.UTF8.GetString(bytesFrom);
                 ChatProtocol chatProtocol = JsonConvert.DeserializeObject<ChatProtocol>(dataFromClient);
                 if (chatProtocol != null)
                 {
