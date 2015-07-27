@@ -57,15 +57,6 @@ namespace ChatServer
             socketToClient.Add(ClientSocket, chatProtocol.sender_id);
             clientToSocket.Add(chatProtocol.sender_id, ClientSocket);
 
-            if (chatProtocol.chat_target == CHAT_TARGET.CHAT_ALL) {
-                broadcast(chatProtocol);
-            }
-            else if (chatProtocol.chat_target == CHAT_TARGET.CHAT_WHISPER 
-                || chatProtocol.chat_target == CHAT_TARGET.CHAT_GAMEROOM)
-            {
-                multicast(chatProtocol);
-            }
-
             Console.WriteLine(chatProtocol.sender_id + " Joined ");
 
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();

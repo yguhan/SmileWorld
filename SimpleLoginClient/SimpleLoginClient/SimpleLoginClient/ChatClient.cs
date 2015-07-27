@@ -33,6 +33,7 @@ namespace SimpleLoginClient
 
             // socket을 채팅 서버에 연결, getMessage 스레드 시작
             chatSocket.Connect("127.0.0.1", 10000);
+            this.sendMessage(this.chatClientInfo);
             Thread ctThread = new Thread(getMessage);
             ctThread.Start();
         }
@@ -71,6 +72,7 @@ namespace SimpleLoginClient
             }
 
             // 채팅 프로토콜을 Json으로 변환하여 소켓을 통해 서버로 전송
+            Console.WriteLine(chatProtocol.message);
             string output = JsonConvert.SerializeObject(chatProtocol);
             byte[] outStream = System.Text.Encoding.UTF8.GetBytes(output);
             chatSocket.Send(outStream, SocketFlags.None);

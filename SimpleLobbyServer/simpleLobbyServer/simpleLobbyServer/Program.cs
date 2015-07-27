@@ -7,7 +7,6 @@ using System.Collections;
 using System.Net.Sockets;
 using MySql.Data.MySqlClient;
 using System.Threading;
-using System.Collections;
 using Newtonsoft.Json;
 
 
@@ -45,29 +44,10 @@ namespace simpleLobbyServer
                 User user = new User();
                 user = JsonConvert.DeserializeObject<User>(dataFromClient);
 
-
-
-
-
-
-
-
-
-
                 LobbyClientInformation lobbyClientInfo = new LobbyClientInformation();
                 lobbyClientInfo.status = LOBBY_STATUS.LOBBY_IN;
                 lobbyClientInfo.user_id = user.user_id;
                 lobbyClientInfo.lobbyList = userinfo.userlistwithoutsocket;
-                
-
-
-
-
-
-
-
-
-
 
                 UserWithSocket userWithSocket = new UserWithSocket(user, clientSocket);
                 
